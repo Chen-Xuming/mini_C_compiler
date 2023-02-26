@@ -1,0 +1,209 @@
+* -> Prelude
+  0:    LD  6, 0(0)	load maxaddress from location 0
+  1:    ST  0, 0(0)	clear location 0
+  2:   LDA  4, 0(6)	allocate for global variables
+* <- Perlude
+* Jump to function: main()
+* -> function: input()
+  9:    IN  1, 0, 0	input an integer from keyboard into ax
+ 10:   LDA  4, 1(4)	prepare to pop
+ 11:    LD  7, -1(4)	pop return pc
+* <- function: input()
+* -> function: output()
+ 12:    LD  1, 1(4)	load parameter into ax
+ 13:   OUT  1, 0, 0	output the integer in ax
+ 14:   LDA  4, 1(4)	prepare to pop
+ 15:    LD  7, -1(4)	pop return pc
+* <- function: output()
+* -> function
+ 16:   LDA  4, -1(4)	prepare to push
+ 17:    ST  5, 0(4)	push old bp
+ 18:   LDA  5, 0(4)	let bp = sp
+ 19:   LDA  4, 0(4)	allocate for local variables
+* -> compound-statement
+* -> if-statement
+* -> conditional expression
+* -> op
+* -> variable
+ 20:   LDA  2, 3(5)	get param variable address
+ 21:    LD  1, 0(2)	get variable value
+* <- variable
+ 22:   LDA  4, -1(4)	prepare to push
+ 23:    ST  1, 0(4)	store left part into data memory temporarily
+* -> const
+ 24:   LDC  1, 0(0)	store the number
+* <- const
+ 25:   LDA  4, 1(4)	prepare to pop
+ 26:    LD  2, -1(4)	store left part into register now
+ 27:   SUB  1, 2, 1	op ==
+ 28:   JEQ  1, 2(7)	skip 2 pc if true
+ 29:   LDC  1, 0(0)	set ax for jumping to false case
+ 30:   LDA  7, 1(7)	skip 1 pc if false
+ 31:   LDC  1, 1(0)	set ax for iumping to true case
+* <- op
+* <- conditional expression
+* -> 'then' part
+* -> return
+* -> variable
+ 33:   LDA  2, 2(5)	get param variable address
+ 34:    LD  1, 0(2)	get variable value
+* <- variable
+ 35:   LDA  4, 0(5)	let sp = bp
+ 36:   LDA  4, 2(4)	prepare to pop
+ 37:    LD  5, -2(4)	pop old bp
+ 38:    LD  7, -1(4)	pop return pc
+* <- return
+* <- 'then' part
+ 32:   JEQ  1, 40(0)	jump to else part
+* -> 'else' part
+* -> return
+* -> call function
+* -> op
+* -> variable
+ 40:   LDA  2, 2(5)	get param variable address
+ 41:    LD  1, 0(2)	get variable value
+* <- variable
+ 42:   LDA  4, -1(4)	prepare to push
+ 43:    ST  1, 0(4)	store left part into data memory temporarily
+* -> op
+* -> op
+* -> variable
+ 44:   LDA  2, 2(5)	get param variable address
+ 45:    LD  1, 0(2)	get variable value
+* <- variable
+ 46:   LDA  4, -1(4)	prepare to push
+ 47:    ST  1, 0(4)	store left part into data memory temporarily
+* -> variable
+ 48:   LDA  2, 3(5)	get param variable address
+ 49:    LD  1, 0(2)	get variable value
+* <- variable
+ 50:   LDA  4, 1(4)	prepare to pop
+ 51:    LD  2, -1(4)	store left part into register now
+ 52:   DIV  1, 2, 1	op /
+* <- op
+ 53:   LDA  4, -1(4)	prepare to push
+ 54:    ST  1, 0(4)	store left part into data memory temporarily
+* -> variable
+ 55:   LDA  2, 3(5)	get param variable address
+ 56:    LD  1, 0(2)	get variable value
+* <- variable
+ 57:   LDA  4, 1(4)	prepare to pop
+ 58:    LD  2, -1(4)	store left part into register now
+ 59:   MUL  1, 2, 1	op *
+* <- op
+ 60:   LDA  4, 1(4)	prepare to pop
+ 61:    LD  2, -1(4)	store left part into register now
+ 62:   SUB  1, 2, 1	op -
+* <- op
+ 63:   LDA  4, -1(4)	prepare to push
+ 64:    ST  1, 0(4)	push parameter
+* -> variable
+ 65:   LDA  2, 3(5)	get param variable address
+ 66:    LD  1, 0(2)	get variable value
+* <- variable
+ 67:   LDA  4, -1(4)	prepare to push
+ 68:    ST  1, 0(4)	push parameter
+ 69:   LDA  1, 3(7)	store return pc
+ 70:   LDA  4, -1(4)	prepare to push
+ 71:    ST  1, 0(4)	push return pc
+ 72:   LDC  7, 16(0)	jump to function
+ 73:   LDA  4, 2(4)	release parameters
+* <- call function
+ 74:   LDA  4, 0(5)	let sp = bp
+ 75:   LDA  4, 2(4)	prepare to pop
+ 76:    LD  5, -2(4)	pop old bp
+ 77:    LD  7, -1(4)	pop return pc
+* <- return
+* <- 'else' part'
+ 39:   LDA  7, 78(0)	'then' part end and jump out if-statement
+* <- if-statement
+* <- compound-statement
+* <- function
+* -> function
+ 78:   LDA  4, -1(4)	prepare to push
+ 79:    ST  5, 0(4)	push old bp
+ 80:   LDA  5, 0(4)	let bp = sp
+ 81:   LDA  4, -2(4)	allocate for local variables
+* -> compound-statement
+* -> assign
+* -> left part
+* -> variable
+ 82:   LDA  2, -1(5)	get local variable address
+* <- variable
+* <- left part
+ 83:   LDA  4, -1(4)	prepare to push
+ 84:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> call function
+ 85:   LDA  1, 3(7)	store return pc
+ 86:   LDA  4, -1(4)	prepare to push
+ 87:    ST  1, 0(4)	push return pc
+ 88:   LDC  7, 9(0)	jump to function
+ 89:   LDA  4, 0(4)	release parameters
+* <- call function
+* <- right part
+ 90:   LDA  4, 1(4)	pop prepare
+ 91:    LD  2, -1(4)	recover the left-part's address
+ 92:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> assign
+* -> left part
+* -> variable
+ 93:   LDA  2, -2(5)	get local variable address
+* <- variable
+* <- left part
+ 94:   LDA  4, -1(4)	prepare to push
+ 95:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> call function
+ 96:   LDA  1, 3(7)	store return pc
+ 97:   LDA  4, -1(4)	prepare to push
+ 98:    ST  1, 0(4)	push return pc
+ 99:   LDC  7, 9(0)	jump to function
+100:   LDA  4, 0(4)	release parameters
+* <- call function
+* <- right part
+101:   LDA  4, 1(4)	pop prepare
+102:    LD  2, -1(4)	recover the left-part's address
+103:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> call function
+* -> call function
+* -> variable
+104:   LDA  2, -2(5)	get local variable address
+105:    LD  1, 0(2)	get variable value
+* <- variable
+106:   LDA  4, -1(4)	prepare to push
+107:    ST  1, 0(4)	push parameter
+* -> variable
+108:   LDA  2, -1(5)	get local variable address
+109:    LD  1, 0(2)	get variable value
+* <- variable
+110:   LDA  4, -1(4)	prepare to push
+111:    ST  1, 0(4)	push parameter
+112:   LDA  1, 3(7)	store return pc
+113:   LDA  4, -1(4)	prepare to push
+114:    ST  1, 0(4)	push return pc
+115:   LDC  7, 16(0)	jump to function
+116:   LDA  4, 2(4)	release parameters
+* <- call function
+117:   LDA  4, -1(4)	prepare to push
+118:    ST  1, 0(4)	push parameter
+119:   LDA  1, 3(7)	store return pc
+120:   LDA  4, -1(4)	prepare to push
+121:    ST  1, 0(4)	push return pc
+122:   LDC  7, 12(0)	jump to function
+123:   LDA  4, 1(4)	release parameters
+* <- call function
+* <- compound-statement
+124:   LDA  4, 0(5)	let sp = bp
+125:   LDA  4, 2(4)	prepare to pop
+126:    LD  5, -2(4)	pop old bp
+127:    LD  7, -1(4)	pop return pc
+* <- function
+  3:   LDA  1, 3(7)	store return pc
+  4:   LDA  4, -1(4)	prepare to push
+  5:    ST  1, 0(4)	push return pc
+  6:   LDC  7, 78(0)	jump to function
+  7:   LDA  4, 0(4)	release parameters
+  8:  HALT  0, 0, 0	END OF PROGRAM

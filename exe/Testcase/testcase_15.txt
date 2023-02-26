@@ -1,0 +1,11 @@
+/*
+	测试语义错误：声明非int类型的变量
+*/
+
+int x;
+void k;
+void arr[10];
+
+int main(void){
+	return 0;
+}

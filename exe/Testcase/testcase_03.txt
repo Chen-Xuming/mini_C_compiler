@@ -1,0 +1,16 @@
+/*  ”Ô∑®:  compound-stmt
+                  local-declarations:  empty /  one var-dec / some var-decs
+     ¥ ∑®:   { }   int  void,  ID,  NUM [ ] ......  */
+
+int testA(void){
+	
+}
+
+int  testB(void){
+	int i;
+}
+
+int testC(void){
+	int i;
+	int arr[100];
+}

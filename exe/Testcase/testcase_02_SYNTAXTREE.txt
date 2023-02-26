@@ -1,0 +1,11 @@
+start
+        fun-dec(testB, int)
+                compound
+        fun-dec(testA, void)
+                var-dec(a, int)
+                compound
+        fun-dec(testC, int)
+                var-dec(a, int)
+                var-dec(b, int)
+                arr-dec(c, int)
+                compound

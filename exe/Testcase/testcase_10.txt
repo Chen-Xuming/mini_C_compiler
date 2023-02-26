@@ -1,0 +1,7 @@
+/* 
+        遇到非ascii字符或其他不合法字符时报错。
+*/
+
+int 阿明;  
+int student_id;	 
+ 

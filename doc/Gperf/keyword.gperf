@@ -1,0 +1,17 @@
+%{
+#include <stdio.h>
+#include "keyword.h"
+
+struct c_keyword {
+  char * name;
+  int token;
+};
+%}
+%%
+else, ELSE
+if, IF
+int, INT
+return, RETURN
+void, VOID
+while, WHILE
+%%

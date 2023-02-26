@@ -1,0 +1,5 @@
+/*
+         检查注释未闭合前到达EOF的错误。
+*/
+
+int sid;    /*  Student ID *

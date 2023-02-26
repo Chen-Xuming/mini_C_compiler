@@ -1,0 +1,15 @@
+start
+        fun-dec(function, void)
+                compound
+                        return
+        fun-dec(function, int)
+                compound
+                        return
+                                const(0)
+        fun-dec(main, int)
+                compound
+                        var-dec(x, int)
+                        var-dec(k, int)
+                        var-dec(x, int)
+                        return
+                                const(0)

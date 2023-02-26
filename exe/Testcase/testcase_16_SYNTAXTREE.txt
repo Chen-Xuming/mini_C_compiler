@@ -1,0 +1,21 @@
+start
+        fun-dec(f, void)
+                compound
+                        return
+        fun-dec(main, int)
+                compound
+                        var-dec(i, int)
+                        var-dec(j, int)
+                        assign
+                                id(i)
+                                call(f)
+                        if
+                                op(==)
+                                        id(j)
+                                        call(f)
+                                compound
+                                        assign
+                                                id(i)
+                                                const(0)
+                        return
+                                const(0)

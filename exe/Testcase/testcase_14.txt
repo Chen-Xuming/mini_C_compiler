@@ -1,0 +1,9 @@
+/*
+	²âÊÔÓïÒå´íÎó£ºÈ±ÉÙreturnÓï¾ä
+*/
+
+int main(void){
+	int i;
+	i = input();
+	output(i);
+}

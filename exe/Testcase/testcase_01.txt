@@ -1,0 +1,5 @@
+/*  ”Ô∑®:  var-declaration
+     ¥ ∑®:   ID   NUM    keyword: int     [  ]    ;     comment   */
+
+int num;
+int array[1000]; 

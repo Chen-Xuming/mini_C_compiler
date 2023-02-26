@@ -1,0 +1,3 @@
+start
+        var-dec(num, int)
+        arr-dec(array, int, 1000)

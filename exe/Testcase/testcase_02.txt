@@ -1,0 +1,15 @@
+/* ”Ô∑®:  fun-declaration,  
+                 compound-stmt
+                 param:  void,  single-param,  params-list
+    ¥ ∑®:   keyword:int, void    ID    ( )    ,    { }   */
+
+int testB(void){ 
+
+}
+
+void testA(int a) { 
+}
+
+int testC(int a, int b, int c[ ]){
+
+}

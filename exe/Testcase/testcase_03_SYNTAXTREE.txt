@@ -1,0 +1,10 @@
+start
+        fun-dec(testA, int)
+                compound
+        fun-dec(testB, int)
+                compound
+                        var-dec(i, int)
+        fun-dec(testC, int)
+                compound
+                        var-dec(i, int)
+                        arr-dec(arr, int, 100)

@@ -1,0 +1,14 @@
+start
+        fun-dec(function, int)
+                compound
+                        return
+                                const(0)
+        fun-dec(main, int)
+                compound
+                        var-dec(i, int)
+                        assign
+                                id(j)
+                                const(0)
+                        call(func)
+                        return
+                                const(0)

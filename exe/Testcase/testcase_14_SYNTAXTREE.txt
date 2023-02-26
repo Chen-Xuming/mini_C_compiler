@@ -1,0 +1,9 @@
+start
+        fun-dec(main, int)
+                compound
+                        var-dec(i, int)
+                        assign
+                                id(i)
+                                call(input)
+                        call(output)
+                                id(i)

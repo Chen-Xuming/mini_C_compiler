@@ -1,0 +1,10 @@
+/*
+	测试语义错误：
+	return语句和函数返回值类型不匹配
+*/
+
+int main(void){
+	int i;
+	i = 0;
+	return output(i); 
+}

@@ -1,0 +1,14 @@
+/*
+	²âÊÔÓïÒå´íÎó£º·ûºÅÎ´¶¨Òå
+*/
+
+int function(void){
+	return 0;
+}
+
+int main(void){
+	int i;
+	j = 0;
+	func();
+	return 0;
+}

@@ -1,0 +1,129 @@
+start
+        arr-dec(x, int, 10)
+        fun-dec(minloc, int)
+                arr-dec(a, int)
+                var-dec(low, int)
+                var-dec(high, int)
+                compound
+                        var-dec(i, int)
+                        var-dec(x, int)
+                        var-dec(k, int)
+                        assign
+                                id(k)
+                                id(low)
+                        assign
+                                id(x)
+                                id(a[])
+                                        id(low)
+                        assign
+                                id(i)
+                                op(+)
+                                        id(low)
+                                        const(1)
+                        while
+                                op(<)
+                                        id(i)
+                                        id(high)
+                                compound
+                                        if
+                                                op(<)
+                                                        id(a[])
+                                                                id(i)
+                                                        id(x)
+                                                compound
+                                                        assign
+                                                                id(x)
+                                                                id(a[])
+                                                                        id(i)
+                                                        assign
+                                                                id(k)
+                                                                id(i)
+                                        assign
+                                                id(i)
+                                                op(+)
+                                                        id(i)
+                                                        const(1)
+                        return
+                                id(k)
+        fun-dec(sort, void)
+                arr-dec(a, int)
+                var-dec(low, int)
+                var-dec(high, int)
+                compound
+                        var-dec(i, int)
+                        var-dec(k, int)
+                        assign
+                                id(i)
+                                id(low)
+                        while
+                                op(<)
+                                        id(i)
+                                        op(-)
+                                                id(high)
+                                                const(1)
+                                compound
+                                        var-dec(t, int)
+                                        assign
+                                                id(k)
+                                                call(minloc)
+                                                        id(a)
+                                                        id(i)
+                                                        id(high)
+                                        assign
+                                                id(t)
+                                                id(a[])
+                                                        id(k)
+                                        assign
+                                                id(a[])
+                                                        id(k)
+                                                id(a[])
+                                                        id(i)
+                                        assign
+                                                id(a[])
+                                                        id(i)
+                                                id(t)
+                                        assign
+                                                id(i)
+                                                op(+)
+                                                        id(i)
+                                                        const(1)
+        fun-dec(main, void)
+                compound
+                        var-dec(i, int)
+                        assign
+                                id(i)
+                                const(0)
+                        while
+                                op(<)
+                                        id(i)
+                                        const(10)
+                                compound
+                                        assign
+                                                id(x[])
+                                                        id(i)
+                                                call(input)
+                                        assign
+                                                id(i)
+                                                op(+)
+                                                        id(i)
+                                                        const(1)
+                        call(sort)
+                                id(x)
+                                const(0)
+                                const(10)
+                        assign
+                                id(i)
+                                const(0)
+                        while
+                                op(<)
+                                        id(i)
+                                        const(10)
+                                compound
+                                        call(output)
+                                                id(x[])
+                                                        id(i)
+                                        assign
+                                                id(i)
+                                                op(+)
+                                                        id(i)
+                                                        const(1)

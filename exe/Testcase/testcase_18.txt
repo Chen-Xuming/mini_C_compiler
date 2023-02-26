@@ -1,0 +1,15 @@
+/*
+	测试语义错误：
+	函数实参和形参不匹配
+*/
+
+int function(int i, int j[], int k){
+	return i;
+}
+
+
+int main(void){
+	int i;
+	i = function(1);
+	return 0;
+}

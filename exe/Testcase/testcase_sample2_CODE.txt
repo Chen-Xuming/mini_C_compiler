@@ -1,0 +1,733 @@
+* -> Prelude
+  0:    LD  6, 0(0)	load maxaddress from location 0
+  1:    ST  0, 0(0)	clear location 0
+  2:   LDA  4, -10(6)	allocate for global variables
+* <- Perlude
+* Jump to function: main()
+* -> function: input()
+  9:    IN  1, 0, 0	input an integer from keyboard into ax
+ 10:   LDA  4, 1(4)	prepare to pop
+ 11:    LD  7, -1(4)	pop return pc
+* <- function: input()
+* -> function: output()
+ 12:    LD  1, 1(4)	load parameter into ax
+ 13:   OUT  1, 0, 0	output the integer in ax
+ 14:   LDA  4, 1(4)	prepare to pop
+ 15:    LD  7, -1(4)	pop return pc
+* <- function: output()
+* -> function
+ 16:   LDA  4, -1(4)	prepare to push
+ 17:    ST  5, 0(4)	push old bp
+ 18:   LDA  5, 0(4)	let bp = sp
+ 19:   LDA  4, -3(4)	allocate for local variables
+* -> compound-statement
+* -> assign
+* -> left part
+* -> variable
+ 20:   LDA  2, -3(5)	get local variable address
+* <- variable
+* <- left part
+ 21:   LDA  4, -1(4)	prepare to push
+ 22:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> variable
+ 23:   LDA  2, 3(5)	get param variable address
+ 24:    LD  1, 0(2)	get variable value
+* <- variable
+* <- right part
+ 25:   LDA  4, 1(4)	pop prepare
+ 26:    LD  2, -1(4)	recover the left-part's address
+ 27:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> assign
+* -> left part
+* -> variable
+ 28:   LDA  2, -2(5)	get local variable address
+* <- variable
+* <- left part
+ 29:   LDA  4, -1(4)	prepare to push
+ 30:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> array element
+ 31:    LD  2, 2(5)	get param array address
+ 32:   LDA  4, -1(4)	prepare to push
+ 33:    ST  2, 0(4)	protect the array address
+* -> array index
+* -> variable
+ 34:   LDA  2, 3(5)	get param variable address
+ 35:    LD  1, 0(2)	get variable value
+* <- variable
+* <- array idnex
+ 36:   LDA  4, 1(4)	pop prepare
+ 37:    LD  2, -1(4)	recover the array address into bx
+ 38:   SUB  2, 2, 1	get array element address
+ 39:    LD  1, 0(2)	get array element value
+* <- array element
+* <- right part
+ 40:   LDA  4, 1(4)	pop prepare
+ 41:    LD  2, -1(4)	recover the left-part's address
+ 42:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> assign
+* -> left part
+* -> variable
+ 43:   LDA  2, -1(5)	get local variable address
+* <- variable
+* <- left part
+ 44:   LDA  4, -1(4)	prepare to push
+ 45:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> op
+* -> variable
+ 46:   LDA  2, 3(5)	get param variable address
+ 47:    LD  1, 0(2)	get variable value
+* <- variable
+ 48:   LDA  4, -1(4)	prepare to push
+ 49:    ST  1, 0(4)	store left part into data memory temporarily
+* -> const
+ 50:   LDC  1, 1(0)	store the number
+* <- const
+ 51:   LDA  4, 1(4)	prepare to pop
+ 52:    LD  2, -1(4)	store left part into register now
+ 53:   ADD  1, 2, 1	op +
+* <- op
+* <- right part
+ 54:   LDA  4, 1(4)	pop prepare
+ 55:    LD  2, -1(4)	recover the left-part's address
+ 56:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> while-statement
+* -> conditional expression
+* -> op
+* -> variable
+ 57:   LDA  2, -1(5)	get local variable address
+ 58:    LD  1, 0(2)	get variable value
+* <- variable
+ 59:   LDA  4, -1(4)	prepare to push
+ 60:    ST  1, 0(4)	store left part into data memory temporarily
+* -> variable
+ 61:   LDA  2, 4(5)	get param variable address
+ 62:    LD  1, 0(2)	get variable value
+* <- variable
+ 63:   LDA  4, 1(4)	prepare to pop
+ 64:    LD  2, -1(4)	store left part into register now
+ 65:   SUB  1, 2, 1	op <
+ 66:   JLT  1, 2(7)	skip 2 pc if true
+ 67:   LDC  1, 0(0)	set ax for jumping to false case
+ 68:   LDA  7, 1(7)	skip 1 pc if false
+ 69:   LDC  1, 1(0)	set ax for iumping to true case
+* <- op
+* <- conditional expression
+* -> while-body
+* -> compound-statement
+* -> if-statement
+* -> conditional expression
+* -> op
+* -> array element
+ 71:    LD  2, 2(5)	get param array address
+ 72:   LDA  4, -1(4)	prepare to push
+ 73:    ST  2, 0(4)	protect the array address
+* -> array index
+* -> variable
+ 74:   LDA  2, -1(5)	get local variable address
+ 75:    LD  1, 0(2)	get variable value
+* <- variable
+* <- array idnex
+ 76:   LDA  4, 1(4)	pop prepare
+ 77:    LD  2, -1(4)	recover the array address into bx
+ 78:   SUB  2, 2, 1	get array element address
+ 79:    LD  1, 0(2)	get array element value
+* <- array element
+ 80:   LDA  4, -1(4)	prepare to push
+ 81:    ST  1, 0(4)	store left part into data memory temporarily
+* -> variable
+ 82:   LDA  2, -2(5)	get local variable address
+ 83:    LD  1, 0(2)	get variable value
+* <- variable
+ 84:   LDA  4, 1(4)	prepare to pop
+ 85:    LD  2, -1(4)	store left part into register now
+ 86:   SUB  1, 2, 1	op <
+ 87:   JLT  1, 2(7)	skip 2 pc if true
+ 88:   LDC  1, 0(0)	set ax for jumping to false case
+ 89:   LDA  7, 1(7)	skip 1 pc if false
+ 90:   LDC  1, 1(0)	set ax for iumping to true case
+* <- op
+* <- conditional expression
+* -> 'then' part
+* -> compound-statement
+* -> assign
+* -> left part
+* -> variable
+ 92:   LDA  2, -2(5)	get local variable address
+* <- variable
+* <- left part
+ 93:   LDA  4, -1(4)	prepare to push
+ 94:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> array element
+ 95:    LD  2, 2(5)	get param array address
+ 96:   LDA  4, -1(4)	prepare to push
+ 97:    ST  2, 0(4)	protect the array address
+* -> array index
+* -> variable
+ 98:   LDA  2, -1(5)	get local variable address
+ 99:    LD  1, 0(2)	get variable value
+* <- variable
+* <- array idnex
+100:   LDA  4, 1(4)	pop prepare
+101:    LD  2, -1(4)	recover the array address into bx
+102:   SUB  2, 2, 1	get array element address
+103:    LD  1, 0(2)	get array element value
+* <- array element
+* <- right part
+104:   LDA  4, 1(4)	pop prepare
+105:    LD  2, -1(4)	recover the left-part's address
+106:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> assign
+* -> left part
+* -> variable
+107:   LDA  2, -3(5)	get local variable address
+* <- variable
+* <- left part
+108:   LDA  4, -1(4)	prepare to push
+109:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> variable
+110:   LDA  2, -1(5)	get local variable address
+111:    LD  1, 0(2)	get variable value
+* <- variable
+* <- right part
+112:   LDA  4, 1(4)	pop prepare
+113:    LD  2, -1(4)	recover the left-part's address
+114:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* <- compound-statement
+* <- 'then' part
+ 91:   JEQ  1, 116(0)	jump to else part
+* -> 'else' part
+* <- 'else' part'
+115:   LDA  7, 116(0)	'then' part end and jump out if-statement
+* <- if-statement
+* -> assign
+* -> left part
+* -> variable
+116:   LDA  2, -1(5)	get local variable address
+* <- variable
+* <- left part
+117:   LDA  4, -1(4)	prepare to push
+118:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> op
+* -> variable
+119:   LDA  2, -1(5)	get local variable address
+120:    LD  1, 0(2)	get variable value
+* <- variable
+121:   LDA  4, -1(4)	prepare to push
+122:    ST  1, 0(4)	store left part into data memory temporarily
+* -> const
+123:   LDC  1, 1(0)	store the number
+* <- const
+124:   LDA  4, 1(4)	prepare to pop
+125:    LD  2, -1(4)	store left part into register now
+126:   ADD  1, 2, 1	op +
+* <- op
+* <- right part
+127:   LDA  4, 1(4)	pop prepare
+128:    LD  2, -1(4)	recover the left-part's address
+129:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* <- compound-statement
+* <- while-body
+130:   LDA  7, 57(0)	jump to while-test
+ 70:   JEQ  1, 131(0)	get 'false' and jump out while-statement
+* <- while-statement
+* -> return
+* -> variable
+131:   LDA  2, -3(5)	get local variable address
+132:    LD  1, 0(2)	get variable value
+* <- variable
+133:   LDA  4, 0(5)	let sp = bp
+134:   LDA  4, 2(4)	prepare to pop
+135:    LD  5, -2(4)	pop old bp
+136:    LD  7, -1(4)	pop return pc
+* <- return
+* <- compound-statement
+* <- function
+* -> function
+137:   LDA  4, -1(4)	prepare to push
+138:    ST  5, 0(4)	push old bp
+139:   LDA  5, 0(4)	let bp = sp
+140:   LDA  4, -3(4)	allocate for local variables
+* -> compound-statement
+* -> assign
+* -> left part
+* -> variable
+141:   LDA  2, -1(5)	get local variable address
+* <- variable
+* <- left part
+142:   LDA  4, -1(4)	prepare to push
+143:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> variable
+144:   LDA  2, 3(5)	get param variable address
+145:    LD  1, 0(2)	get variable value
+* <- variable
+* <- right part
+146:   LDA  4, 1(4)	pop prepare
+147:    LD  2, -1(4)	recover the left-part's address
+148:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> while-statement
+* -> conditional expression
+* -> op
+* -> variable
+149:   LDA  2, -1(5)	get local variable address
+150:    LD  1, 0(2)	get variable value
+* <- variable
+151:   LDA  4, -1(4)	prepare to push
+152:    ST  1, 0(4)	store left part into data memory temporarily
+* -> op
+* -> variable
+153:   LDA  2, 4(5)	get param variable address
+154:    LD  1, 0(2)	get variable value
+* <- variable
+155:   LDA  4, -1(4)	prepare to push
+156:    ST  1, 0(4)	store left part into data memory temporarily
+* -> const
+157:   LDC  1, 1(0)	store the number
+* <- const
+158:   LDA  4, 1(4)	prepare to pop
+159:    LD  2, -1(4)	store left part into register now
+160:   SUB  1, 2, 1	op -
+* <- op
+161:   LDA  4, 1(4)	prepare to pop
+162:    LD  2, -1(4)	store left part into register now
+163:   SUB  1, 2, 1	op <
+164:   JLT  1, 2(7)	skip 2 pc if true
+165:   LDC  1, 0(0)	set ax for jumping to false case
+166:   LDA  7, 1(7)	skip 1 pc if false
+167:   LDC  1, 1(0)	set ax for iumping to true case
+* <- op
+* <- conditional expression
+* -> while-body
+* -> compound-statement
+* -> assign
+* -> left part
+* -> variable
+169:   LDA  2, -2(5)	get local variable address
+* <- variable
+* <- left part
+170:   LDA  4, -1(4)	prepare to push
+171:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> call function
+* -> variable
+172:   LDA  2, 4(5)	get param variable address
+173:    LD  1, 0(2)	get variable value
+* <- variable
+174:   LDA  4, -1(4)	prepare to push
+175:    ST  1, 0(4)	push parameter
+* -> variable
+176:   LDA  2, -1(5)	get local variable address
+177:    LD  1, 0(2)	get variable value
+* <- variable
+178:   LDA  4, -1(4)	prepare to push
+179:    ST  1, 0(4)	push parameter
+* -> array address
+180:    LD  2, 2(5)	get param array address
+181:   LDA  1, 0(2)	put array address into ax
+* <- array address
+182:   LDA  4, -1(4)	prepare to push
+183:    ST  1, 0(4)	push parameter
+184:   LDA  1, 3(7)	store return pc
+185:   LDA  4, -1(4)	prepare to push
+186:    ST  1, 0(4)	push return pc
+187:   LDC  7, 16(0)	jump to function
+188:   LDA  4, 3(4)	release parameters
+* <- call function
+* <- right part
+189:   LDA  4, 1(4)	pop prepare
+190:    LD  2, -1(4)	recover the left-part's address
+191:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> assign
+* -> left part
+* -> variable
+192:   LDA  2, -3(5)	get local variable address
+* <- variable
+* <- left part
+193:   LDA  4, -1(4)	prepare to push
+194:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> array element
+195:    LD  2, 2(5)	get param array address
+196:   LDA  4, -1(4)	prepare to push
+197:    ST  2, 0(4)	protect the array address
+* -> array index
+* -> variable
+198:   LDA  2, -2(5)	get local variable address
+199:    LD  1, 0(2)	get variable value
+* <- variable
+* <- array idnex
+200:   LDA  4, 1(4)	pop prepare
+201:    LD  2, -1(4)	recover the array address into bx
+202:   SUB  2, 2, 1	get array element address
+203:    LD  1, 0(2)	get array element value
+* <- array element
+* <- right part
+204:   LDA  4, 1(4)	pop prepare
+205:    LD  2, -1(4)	recover the left-part's address
+206:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> assign
+* -> left part
+* -> array element
+207:    LD  2, 2(5)	get param array address
+208:   LDA  4, -1(4)	prepare to push
+209:    ST  2, 0(4)	protect the array address
+* -> array index
+* -> variable
+210:   LDA  2, -2(5)	get local variable address
+211:    LD  1, 0(2)	get variable value
+* <- variable
+* <- array idnex
+212:   LDA  4, 1(4)	pop prepare
+213:    LD  2, -1(4)	recover the array address into bx
+214:   SUB  2, 2, 1	get array element address
+* <- array element
+* <- left part
+215:   LDA  4, -1(4)	prepare to push
+216:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> array element
+217:    LD  2, 2(5)	get param array address
+218:   LDA  4, -1(4)	prepare to push
+219:    ST  2, 0(4)	protect the array address
+* -> array index
+* -> variable
+220:   LDA  2, -1(5)	get local variable address
+221:    LD  1, 0(2)	get variable value
+* <- variable
+* <- array idnex
+222:   LDA  4, 1(4)	pop prepare
+223:    LD  2, -1(4)	recover the array address into bx
+224:   SUB  2, 2, 1	get array element address
+225:    LD  1, 0(2)	get array element value
+* <- array element
+* <- right part
+226:   LDA  4, 1(4)	pop prepare
+227:    LD  2, -1(4)	recover the left-part's address
+228:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> assign
+* -> left part
+* -> array element
+229:    LD  2, 2(5)	get param array address
+230:   LDA  4, -1(4)	prepare to push
+231:    ST  2, 0(4)	protect the array address
+* -> array index
+* -> variable
+232:   LDA  2, -1(5)	get local variable address
+233:    LD  1, 0(2)	get variable value
+* <- variable
+* <- array idnex
+234:   LDA  4, 1(4)	pop prepare
+235:    LD  2, -1(4)	recover the array address into bx
+236:   SUB  2, 2, 1	get array element address
+* <- array element
+* <- left part
+237:   LDA  4, -1(4)	prepare to push
+238:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> variable
+239:   LDA  2, -3(5)	get local variable address
+240:    LD  1, 0(2)	get variable value
+* <- variable
+* <- right part
+241:   LDA  4, 1(4)	pop prepare
+242:    LD  2, -1(4)	recover the left-part's address
+243:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> assign
+* -> left part
+* -> variable
+244:   LDA  2, -1(5)	get local variable address
+* <- variable
+* <- left part
+245:   LDA  4, -1(4)	prepare to push
+246:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> op
+* -> variable
+247:   LDA  2, -1(5)	get local variable address
+248:    LD  1, 0(2)	get variable value
+* <- variable
+249:   LDA  4, -1(4)	prepare to push
+250:    ST  1, 0(4)	store left part into data memory temporarily
+* -> const
+251:   LDC  1, 1(0)	store the number
+* <- const
+252:   LDA  4, 1(4)	prepare to pop
+253:    LD  2, -1(4)	store left part into register now
+254:   ADD  1, 2, 1	op +
+* <- op
+* <- right part
+255:   LDA  4, 1(4)	pop prepare
+256:    LD  2, -1(4)	recover the left-part's address
+257:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* <- compound-statement
+* <- while-body
+258:   LDA  7, 149(0)	jump to while-test
+168:   JEQ  1, 259(0)	get 'false' and jump out while-statement
+* <- while-statement
+* <- compound-statement
+259:   LDA  4, 0(5)	let sp = bp
+260:   LDA  4, 2(4)	prepare to pop
+261:    LD  5, -2(4)	pop old bp
+262:    LD  7, -1(4)	pop return pc
+* <- function
+* -> function
+263:   LDA  4, -1(4)	prepare to push
+264:    ST  5, 0(4)	push old bp
+265:   LDA  5, 0(4)	let bp = sp
+266:   LDA  4, -1(4)	allocate for local variables
+* -> compound-statement
+* -> assign
+* -> left part
+* -> variable
+267:   LDA  2, -1(5)	get local variable address
+* <- variable
+* <- left part
+268:   LDA  4, -1(4)	prepare to push
+269:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> const
+270:   LDC  1, 0(0)	store the number
+* <- const
+* <- right part
+271:   LDA  4, 1(4)	pop prepare
+272:    LD  2, -1(4)	recover the left-part's address
+273:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> while-statement
+* -> conditional expression
+* -> op
+* -> variable
+274:   LDA  2, -1(5)	get local variable address
+275:    LD  1, 0(2)	get variable value
+* <- variable
+276:   LDA  4, -1(4)	prepare to push
+277:    ST  1, 0(4)	store left part into data memory temporarily
+* -> const
+278:   LDC  1, 10(0)	store the number
+* <- const
+279:   LDA  4, 1(4)	prepare to pop
+280:    LD  2, -1(4)	store left part into register now
+281:   SUB  1, 2, 1	op <
+282:   JLT  1, 2(7)	skip 2 pc if true
+283:   LDC  1, 0(0)	set ax for jumping to false case
+284:   LDA  7, 1(7)	skip 1 pc if false
+285:   LDC  1, 1(0)	set ax for iumping to true case
+* <- op
+* <- conditional expression
+* -> while-body
+* -> compound-statement
+* -> assign
+* -> left part
+* -> array element
+287:   LDA  2, 0(6)	get global array address
+288:   LDA  4, -1(4)	prepare to push
+289:    ST  2, 0(4)	protect the array address
+* -> array index
+* -> variable
+290:   LDA  2, -1(5)	get local variable address
+291:    LD  1, 0(2)	get variable value
+* <- variable
+* <- array idnex
+292:   LDA  4, 1(4)	pop prepare
+293:    LD  2, -1(4)	recover the array address into bx
+294:   SUB  2, 2, 1	get array element address
+* <- array element
+* <- left part
+295:   LDA  4, -1(4)	prepare to push
+296:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> call function
+297:   LDA  1, 3(7)	store return pc
+298:   LDA  4, -1(4)	prepare to push
+299:    ST  1, 0(4)	push return pc
+300:   LDC  7, 9(0)	jump to function
+301:   LDA  4, 0(4)	release parameters
+* <- call function
+* <- right part
+302:   LDA  4, 1(4)	pop prepare
+303:    LD  2, -1(4)	recover the left-part's address
+304:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> assign
+* -> left part
+* -> variable
+305:   LDA  2, -1(5)	get local variable address
+* <- variable
+* <- left part
+306:   LDA  4, -1(4)	prepare to push
+307:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> op
+* -> variable
+308:   LDA  2, -1(5)	get local variable address
+309:    LD  1, 0(2)	get variable value
+* <- variable
+310:   LDA  4, -1(4)	prepare to push
+311:    ST  1, 0(4)	store left part into data memory temporarily
+* -> const
+312:   LDC  1, 1(0)	store the number
+* <- const
+313:   LDA  4, 1(4)	prepare to pop
+314:    LD  2, -1(4)	store left part into register now
+315:   ADD  1, 2, 1	op +
+* <- op
+* <- right part
+316:   LDA  4, 1(4)	pop prepare
+317:    LD  2, -1(4)	recover the left-part's address
+318:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* <- compound-statement
+* <- while-body
+319:   LDA  7, 274(0)	jump to while-test
+286:   JEQ  1, 320(0)	get 'false' and jump out while-statement
+* <- while-statement
+* -> call function
+* -> const
+320:   LDC  1, 10(0)	store the number
+* <- const
+321:   LDA  4, -1(4)	prepare to push
+322:    ST  1, 0(4)	push parameter
+* -> const
+323:   LDC  1, 0(0)	store the number
+* <- const
+324:   LDA  4, -1(4)	prepare to push
+325:    ST  1, 0(4)	push parameter
+* -> array address
+326:   LDA  2, 0(6)	get global array address
+327:   LDA  1, 0(2)	put array address into ax
+* <- array address
+328:   LDA  4, -1(4)	prepare to push
+329:    ST  1, 0(4)	push parameter
+330:   LDA  1, 3(7)	store return pc
+331:   LDA  4, -1(4)	prepare to push
+332:    ST  1, 0(4)	push return pc
+333:   LDC  7, 137(0)	jump to function
+334:   LDA  4, 3(4)	release parameters
+* <- call function
+* -> assign
+* -> left part
+* -> variable
+335:   LDA  2, -1(5)	get local variable address
+* <- variable
+* <- left part
+336:   LDA  4, -1(4)	prepare to push
+337:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> const
+338:   LDC  1, 0(0)	store the number
+* <- const
+* <- right part
+339:   LDA  4, 1(4)	pop prepare
+340:    LD  2, -1(4)	recover the left-part's address
+341:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* -> while-statement
+* -> conditional expression
+* -> op
+* -> variable
+342:   LDA  2, -1(5)	get local variable address
+343:    LD  1, 0(2)	get variable value
+* <- variable
+344:   LDA  4, -1(4)	prepare to push
+345:    ST  1, 0(4)	store left part into data memory temporarily
+* -> const
+346:   LDC  1, 10(0)	store the number
+* <- const
+347:   LDA  4, 1(4)	prepare to pop
+348:    LD  2, -1(4)	store left part into register now
+349:   SUB  1, 2, 1	op <
+350:   JLT  1, 2(7)	skip 2 pc if true
+351:   LDC  1, 0(0)	set ax for jumping to false case
+352:   LDA  7, 1(7)	skip 1 pc if false
+353:   LDC  1, 1(0)	set ax for iumping to true case
+* <- op
+* <- conditional expression
+* -> while-body
+* -> compound-statement
+* -> call function
+* -> array element
+355:   LDA  2, 0(6)	get global array address
+356:   LDA  4, -1(4)	prepare to push
+357:    ST  2, 0(4)	protect the array address
+* -> array index
+* -> variable
+358:   LDA  2, -1(5)	get local variable address
+359:    LD  1, 0(2)	get variable value
+* <- variable
+* <- array idnex
+360:   LDA  4, 1(4)	pop prepare
+361:    LD  2, -1(4)	recover the array address into bx
+362:   SUB  2, 2, 1	get array element address
+363:    LD  1, 0(2)	get array element value
+* <- array element
+364:   LDA  4, -1(4)	prepare to push
+365:    ST  1, 0(4)	push parameter
+366:   LDA  1, 3(7)	store return pc
+367:   LDA  4, -1(4)	prepare to push
+368:    ST  1, 0(4)	push return pc
+369:   LDC  7, 12(0)	jump to function
+370:   LDA  4, 1(4)	release parameters
+* <- call function
+* -> assign
+* -> left part
+* -> variable
+371:   LDA  2, -1(5)	get local variable address
+* <- variable
+* <- left part
+372:   LDA  4, -1(4)	prepare to push
+373:    ST  2, 0(4)	protect the left-part's address
+* -> right part
+* -> op
+* -> variable
+374:   LDA  2, -1(5)	get local variable address
+375:    LD  1, 0(2)	get variable value
+* <- variable
+376:   LDA  4, -1(4)	prepare to push
+377:    ST  1, 0(4)	store left part into data memory temporarily
+* -> const
+378:   LDC  1, 1(0)	store the number
+* <- const
+379:   LDA  4, 1(4)	prepare to pop
+380:    LD  2, -1(4)	store left part into register now
+381:   ADD  1, 2, 1	op +
+* <- op
+* <- right part
+382:   LDA  4, 1(4)	pop prepare
+383:    LD  2, -1(4)	recover the left-part's address
+384:    ST  1, 0(2)	here is our goal: ASSIGN
+* <- assign
+* <- compound-statement
+* <- while-body
+385:   LDA  7, 342(0)	jump to while-test
+354:   JEQ  1, 386(0)	get 'false' and jump out while-statement
+* <- while-statement
+* <- compound-statement
+386:   LDA  4, 0(5)	let sp = bp
+387:   LDA  4, 2(4)	prepare to pop
+388:    LD  5, -2(4)	pop old bp
+389:    LD  7, -1(4)	pop return pc
+* <- function
+  3:   LDA  1, 3(7)	store return pc
+  4:   LDA  4, -1(4)	prepare to push
+  5:    ST  1, 0(4)	push return pc
+  6:   LDC  7, 263(0)	jump to function
+  7:   LDA  4, 0(4)	release parameters
+  8:  HALT  0, 0, 0	END OF PROGRAM

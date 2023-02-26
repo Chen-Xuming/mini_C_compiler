@@ -1,0 +1,5 @@
+start
+        fun-dec(function, int)
+                compound
+                        return
+                                const(0)

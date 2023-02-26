@@ -1,0 +1,7 @@
+/*
+	ÓïÒå´íÎó£ºÈ±ÉÙmainº¯Êı
+*/
+
+int function(void){
+	return 0;
+}

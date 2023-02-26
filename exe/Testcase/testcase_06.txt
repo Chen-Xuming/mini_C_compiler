@@ -1,0 +1,19 @@
+/*  ”Ô∑® :   expression
+                    simple-expression
+                    additive-expression
+                    term
+                    factor
+                    call
+                    args,  arg-list
+     ¥ ∑®:    +, -, * ,/               */
+
+void fun(void){
+	int a;  int b;   int  c;
+	a = 1;  
+	b = input();
+	input = c;
+	a  = a * (b - c) / 2;
+	a = a + ( b + abs(c) ) / ( exp(b + floor(i / j)) - (2 * c + 6) ) + c;
+	print(a);
+	print(a, b, c);
+}

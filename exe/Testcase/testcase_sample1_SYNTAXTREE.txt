@@ -1,0 +1,35 @@
+start
+        fun-dec(gcd, int)
+                var-dec(u, int)
+                var-dec(v, int)
+                compound
+                        if
+                                op(==)
+                                        id(v)
+                                        const(0)
+                                return
+                                        id(u)
+                                return
+                                        call(gcd)
+                                                id(v)
+                                                op(-)
+                                                        id(u)
+                                                        op(*)
+                                                                op(/)
+                                                                        id(u)
+                                                                        id(v)
+                                                                id(v)
+        fun-dec(main, void)
+                compound
+                        var-dec(x, int)
+                        var-dec(y, int)
+                        assign
+                                id(x)
+                                call(input)
+                        assign
+                                id(y)
+                                call(input)
+                        call(output)
+                                call(gcd)
+                                        id(x)
+                                        id(y)

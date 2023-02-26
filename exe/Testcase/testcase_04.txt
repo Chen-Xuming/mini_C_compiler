@@ -1,0 +1,28 @@
+/* Óï·¨:       compound-stmt
+	  statement-list:  empty / one statement / some statements
+	  expression-stmt 
+	  if-stmt     if-else-stmt
+	  while-stmt
+	  return-stmt
+     ´Ê·¨:       if   else   return   while     
+*/
+
+void testA(void){
+	
+}
+
+void testB(void){
+	while(a != 0)
+		k = k / 2;
+}
+
+void testC(void){
+	a=10;
+	;
+	if(a>0)  k = 1;
+	if(b>0)  k = 1;
+	else       k = 2;
+	return a;
+	return ;
+}
+	  

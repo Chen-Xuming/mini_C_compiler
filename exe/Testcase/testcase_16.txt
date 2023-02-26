@@ -1,0 +1,17 @@
+/*
+	测试语义错误：赋值语句、条件表达式两边类型不一致
+*/
+
+void f(void){
+	return;
+}
+
+int main(void){
+	int i;
+	int j;
+	i = f();
+	if(j == f()){
+		i = 0;
+	}
+	return 0;
+}

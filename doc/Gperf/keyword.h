@@ -1,0 +1,4 @@
+enum
+{
+	ELSE, IF, INT, RETURN, VOID, WHILE
+};

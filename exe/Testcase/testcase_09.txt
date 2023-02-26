@@ -1,0 +1,8 @@
+/*
+        提示声明必须以int/void开头。
+*/
+
+int a;
+fun(int num){
+	return;	
+}
